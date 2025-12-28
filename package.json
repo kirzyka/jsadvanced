@@ -1,0 +1,36 @@
+{
+    "name": "book-app",
+    "version": "1.0.0",
+    "description": "Test application with custom UI framework",
+    "main": "app.js",
+    "type": "module",
+    "scripts": {
+        "start": "live-server",
+        "build": "rollup -c -w",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kirzyka/jsadvanced.git"
+    },
+    "keywords": [
+        "js",
+        "html",
+        "udemy",
+        "ui-framework"
+    ],
+    "author": "Anton Kirzyk",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kirzyka/jsadvanced/issues"
+    },
+    "homepage": "https://github.com/kirzyka/jsadvanced#readme",
+    "devDependencies": {
+        "@eslint/js": "^9.39.2",
+        "@rollup/plugin-node-resolve": "^16.0.3",
+        "eslint": "^9.39.2",
+        "globals": "^16.5.0",
+        "rollup": "^4.54.0",
+        "rollup-plugin-import-css": "^4.1.2"
+    }
+}
