@@ -1,4 +1,4 @@
 import { createContext } from "@core/context/createContext";
 import { IAppModel } from "../model/IAppModel";
 
-export const AppContext = createContext<IAppModel>();
+export const appContext = createContext<IAppModel>();

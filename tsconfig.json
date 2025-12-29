@@ -4,6 +4,6 @@
         "paths": {
             "@core/*": ["core/*"]
         },
-        "target": "es6"
+        "target": "es2016"
     }
 }

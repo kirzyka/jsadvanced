@@ -1,20 +1,62 @@
-._flex {
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+.flex {
     display: flex;
 }
 
-._flex-column {
+.flex-column {
     flex-direction: column;
 }
-._flex-row {
+.flex-row {
     flex-direction: row;
 }
 
-._flex-gap_10 {
+.flex-grow {
+    flex-grow: 1;
+}
+
+.flex-gap-10 {
     gap: 10px;
 }
 
-._flex-center {
-    display: flex;
-    justify-content: center;
+.items-center {
     align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.px-10 {
+    padding: 0 10px;
+}
+
+.py-10 {
+    padding: 10px 0;
+}
+
+.pl-10 {
+    padding-left: 10px;
+}
+
+.pr-10 {
+    padding-right: 10px;
+}
+
+.pt-10 {
+    padding-top: 10px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
 }

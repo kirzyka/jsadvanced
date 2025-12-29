@@ -6,8 +6,14 @@ export function createElement<T extends HTMLElement>(tagName: string): IElement<
     return {
         children(children: HTMLElement[]): IElement<T> {
             children.forEach((child) => {
-                el.appendChild(child);
+                if (child) {
+                    el.appendChild(child);
+                }
             });
+            return this;
+        },
+        attribute(name: string, value: string): IElement<T> {
+            el.setAttribute(name, value);
             return this;
         },
         className(classNames: string): IElement<T> {
