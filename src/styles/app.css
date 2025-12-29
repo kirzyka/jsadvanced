@@ -1,0 +1,17 @@
+.app {
+    background-color: #1c1b21;
+    color: white;
+}
+
+#root a {
+    color: white;
+    text-decoration: none;
+}
+
+#root a:hover {
+    text-decoration: underline;
+}
+
+#root a:visited {
+    color: white;
+}

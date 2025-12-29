@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@core/*": ["core/*"]
+        },
+        "target": "es6"
+    }
+}

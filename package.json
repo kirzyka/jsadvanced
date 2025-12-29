@@ -27,6 +27,7 @@
     "homepage": "https://github.com/kirzyka/jsadvanced#readme",
     "devDependencies": {
         "@eslint/js": "^9.39.2",
+        "@rollup/plugin-alias": "^5.1.1",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@rollup/plugin-typescript": "^12.3.0",
         "eslint": "^9.39.2",
