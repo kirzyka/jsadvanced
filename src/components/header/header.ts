@@ -1,16 +1,13 @@
 import { img } from "@core/elements/img";
 import { a } from "@core/elements/a";
-import { div } from "../../../core/elements/div";
-import { span } from "../../../core/elements/span";
-
-import "./header.css";
+import { div } from "@core/elements/div";
+import { span } from "@core/elements/span";
 import { useContext } from "@core/context/useContext";
-import { IAppModel } from "src/model/IAppModel";
-import { appContext } from "src/context/appContext";
-
+import { IAppModel } from "../../model/IAppModel";
+import { appContext } from "../../context/appContext";
 export function header() {
     const ctx = useContext<IAppModel>(appContext);
-    const favCountLabel = span().innerHTML(ctx.favorites.get().length.toString()).get();
+    const favCountLabel = span().innerHTML(ctx.favorites.get().length.toString()).className("font-bold text-12 line-28").get();
 
     ctx.favorites.subscribe(() => {
         favCountLabel.innerHTML = ctx.favorites.get().length.toString();
@@ -25,22 +22,32 @@ export function header() {
                 .children([
                     a()
                         .children([img().src("/static/search.svg").attribute("alt", "Поиск иконка").get(), span().innerHTML("Поиск книг").get()])
-                        .className("menu-item")
+                        .className("flex items-center gap-10 text-14 line-20 decoration-none")
                         .get(),
 
                     a()
                         .children([
                             img().src("/static/favorites.svg").attribute("alt", "Избранное").get(),
                             span().innerHTML("Избранное").get(),
-                            div().children([favCountLabel]).className("fav-counter").get(),
+                            div()
+                                .children([favCountLabel])
+                                .width("10px")
+                                .height("30px")
+                                .className("flex items-center justify-center px-10 border rounded")
+                                .get(),
                         ])
-                        .className("menu-item")
+                        /*
+    width: 12px;
+    height: 30px;
+*/
+
+                        .className("flex items-center gap-10 text-14 line-20 decoration-none")
                         .get(),
                 ])
-                .className("menu")
+                .className("flex flex-row items-center gap-30")
                 .get(),
         ])
-        .className("header")
+        .className("flex flex-row items-center space-between my-20")
         .get();
 }
 

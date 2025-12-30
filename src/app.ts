@@ -5,7 +5,7 @@ import { appContext } from "./context/appContext";
 import { appModel } from "./model/appModel";
 import { routes } from "./routes/routes";
 
-import "./styles/_.css";
+import "./styles/_.scss";
 import "./styles/app.css";
 
 const wrapper = (children: FC) => withProvider(appContext, appModel, children);

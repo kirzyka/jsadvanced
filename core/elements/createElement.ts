@@ -27,6 +27,14 @@ export function createElement<T extends HTMLElement>(tagName: string): IElement<
             el.innerHTML = html;
             return this;
         },
+        width(value: string): IElement<T> {
+            el.style.width = value;
+            return this;
+        },
+        height(value: string): IElement<T> {
+            el.style.height = value;
+            return this;
+        },
         get(): T {
             return el;
         },

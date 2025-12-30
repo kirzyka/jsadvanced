@@ -1,0 +1,130 @@
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+.font-normal {
+    font-weight: normal;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.decoration-none {
+    text-decoration: none;
+}
+
+.rounded {
+    border-radius: 50%;
+}
+
+.border {
+    border: 1px solid black;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.flex-gap-10 {
+    gap: 10px;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+$sizes: 2, 4, 6, 8, 10, 12, 14, 16, 20, 30;
+
+@each $size in $sizes {
+    .gap-#{$size} {
+        gap: #{$size}px;
+    }
+
+    .p-#{$size} {
+        padding: #{$size}px;
+    }
+    .px-#{$size} {
+        padding-left: #{$size}px;
+        padding-right: #{$size}px;
+    }
+    .py-#{$size} {
+        padding-top: #{$size}px;
+        padding-bottom: #{$size}px;
+    }
+    .pl-#{$size} {
+        padding-left: #{$size}px;
+    }
+    .pr-#{$size} {
+        padding-right: #{$size}px;
+    }
+    .pt-#{$size} {
+        padding-top: #{$size}px;
+    }
+    .pb-#{$size} {
+        padding-bottom: #{$size}px;
+    }
+
+    .m-#{$size} {
+        margin: #{$size}px;
+    }
+    .mx-#{$size} {
+        margin-left: #{$size}px;
+        margin-right: #{$size}px;
+    }
+    .my-#{$size} {
+        margin-top: #{$size}px;
+        margin-bottom: #{$size}px;
+    }
+    .ml-#{$size} {
+        margin-left: #{$size}px;
+    }
+    .mr-#{$size} {
+        margin-right: #{$size}px;
+    }
+    .mt-#{$size} {
+        margin-top: #{$size}px;
+    }
+    .mb-#{$size} {
+        margin-bottom: #{$size}px;
+    }
+}
+
+$fontSizes: 12 14 16 18 20;
+
+@each $size in $sizes {
+    .text-#{$size} {
+        font-size: #{$size}px;
+    }
+}
+
+$lineSizes: 18 20 22 24 26 28;
+
+@each $size in $lineSizes {
+    .line-#{$size} {
+        line-height: #{$size}px;
+    }
+}

@@ -1,10 +1,11 @@
-import alias from "@rollup/plugin-alias";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import css from "rollup-plugin-import-css";
+import alias from "@rollup/plugin-alias";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
+import postcss from "rollup-plugin-postcss";
+import sass from "sass";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,8 +31,20 @@ export default {
                 },
             ],
         }),
-        css({
-            output: "bundle.css",
+        postcss({
+            extract: true,
+            minimize: true,
+            sourceMap: true,
+            extensions: [".css", ".scss"],
+            use: [
+                [
+                    "sass",
+                    {
+                        includePaths: ["src"],
+                        implementation: sass,
+                    },
+                ],
+            ],
         }),
         nodeResolve(),
         typescript({
