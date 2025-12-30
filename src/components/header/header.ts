@@ -2,15 +2,14 @@ import { img } from "@core/elements/img";
 import { a } from "@core/elements/a";
 import { div } from "@core/elements/div";
 import { span } from "@core/elements/span";
-import { useContext } from "@core/context/useContext";
-import { IAppModel } from "../../model/IAppModel";
-import { appContext } from "../../context/appContext";
-export function header() {
-    const ctx = useContext<IAppModel>(appContext);
-    const favCountLabel = span().innerHTML(ctx.favorites.get().length.toString()).className("font-bold text-12 line-28").get();
+import { appModel } from "../../model/appModel";
 
-    ctx.favorites.subscribe(() => {
-        favCountLabel.innerHTML = ctx.favorites.get().length.toString();
+export function header() {
+    const { favorites } = appModel;
+    const favCountLabel = span().innerHTML(favorites.get().length.toString()).className("font-bold text-12 line-28").get();
+
+    favorites.subscribe(() => {
+        favCountLabel.innerHTML = favorites.get().length.toString();
     });
 
     return div()
@@ -31,7 +30,7 @@ export function header() {
                             span().innerHTML("Избранное").get(),
                             div()
                                 .children([favCountLabel])
-                                .width("10px")
+                                .width("30px")
                                 .height("30px")
                                 .className("flex items-center justify-center px-10 border rounded")
                                 .get(),

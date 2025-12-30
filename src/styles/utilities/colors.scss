@@ -1,0 +1,21 @@
+@use "../tokens";
+
+.text-primary {
+    color: tokens.$color-text-primary;
+}
+
+.text-secondary {
+    color: tokens.$color-text-secondary;
+}
+
+.bg-none {
+    background-color: transparent;
+}
+
+.bg-secondary {
+    background-color: tokens.$color-bg-secondary;
+}
+
+.layer-secondary {
+    background-color: tokens.$color-layer-secondary;
+}

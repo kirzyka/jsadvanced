@@ -1,65 +1,22 @@
-.absolute {
-    position: absolute;
+@use "../tokens";
+
+.mt-auto {
+    margin-top: auto;
 }
 
-.relative {
-    position: relative;
+.mb-auto {
+    margin-bottom: auto;
 }
 
-.font-normal {
-    font-weight: normal;
+.mr-auto {
+    margin-right: auto;
 }
 
-.font-bold {
-    font-weight: bold;
+.ml-auto {
+    margin-left: auto;
 }
 
-.decoration-none {
-    text-decoration: none;
-}
-
-.rounded {
-    border-radius: 50%;
-}
-
-.border {
-    border: 1px solid black;
-}
-
-.flex {
-    display: flex;
-}
-
-.flex-column {
-    flex-direction: column;
-}
-.flex-row {
-    flex-direction: row;
-}
-
-.flex-grow {
-    flex-grow: 1;
-}
-
-.flex-gap-10 {
-    gap: 10px;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.space-between {
-    justify-content: space-between;
-}
-
-$sizes: 2, 4, 6, 8, 10, 12, 14, 16, 20, 30;
-
-@each $size in $sizes {
+@each $size in tokens.$spaceSizes {
     .gap-#{$size} {
         gap: #{$size}px;
     }
@@ -110,21 +67,5 @@ $sizes: 2, 4, 6, 8, 10, 12, 14, 16, 20, 30;
     }
     .mb-#{$size} {
         margin-bottom: #{$size}px;
-    }
-}
-
-$fontSizes: 12 14 16 18 20;
-
-@each $size in $sizes {
-    .text-#{$size} {
-        font-size: #{$size}px;
-    }
-}
-
-$lineSizes: 18 20 22 24 26 28;
-
-@each $size in $lineSizes {
-    .line-#{$size} {
-        line-height: #{$size}px;
     }
 }

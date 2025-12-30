@@ -1,0 +1,9 @@
+@use "./tokens";
+@use "./base";
+@use "./utilities";
+
+.app {
+    background-color: tokens.$color-white;
+    color: tokens.$color-gray-950;
+    padding: 0 20px;
+}

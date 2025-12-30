@@ -1,26 +1,24 @@
-import { useContext } from "@core/context/useContext";
 import { div } from "@core/elements/div";
 import { input } from "@core/elements/input";
 import { img } from "@core/elements/img";
 import { ISignal } from "@core/interfaces/ISignal";
 import { createSignal } from "@core/signal/createSignal";
 import { debounce } from "@core/utils/input/debounce";
-import { IAppModel } from "../../model/IAppModel";
-import { appContext } from "../../context/appContext";
+import { appModel } from "src/model/appModel";
 
 import "./search.css";
 
 export function search(): HTMLElement {
-    const ctx: IAppModel = useContext<IAppModel>(appContext);
+    const { books } = appModel;
     const searchString: ISignal<string> = createSignal<string>("");
-
+    const fields = "key,title,author_name,cover_edition_key,subject";
     const onSearchStringInput = debounce((value: string) => {
         searchString.set(value);
-        fetch(`https://openlibrary.org/search.json?q=${value}&offset=${0}&limit=${10}`)
+        fetch(`https://openlibrary.org/search.json?q=${value}&offset=${0}&limit=${10}&fields=${fields}`)
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                ctx.books.set(data.docs);
+                books.set(data.docs);
             });
     }, 500);
 

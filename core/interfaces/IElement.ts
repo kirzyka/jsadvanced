@@ -5,5 +5,7 @@ export interface IElement<T extends HTMLElement> {
     innerHTML(html: string): this;
     width(value: string): this;
     height(value: string): this;
+    minWidth(value: string): this;
+    minHeight(value: string): this;
     get(): T;
 }

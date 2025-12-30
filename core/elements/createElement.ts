@@ -35,6 +35,14 @@ export function createElement<T extends HTMLElement>(tagName: string): IElement<
             el.style.height = value;
             return this;
         },
+        minWidth(value: string): IElement<T> {
+            el.style.minWidth = value;
+            return this;
+        },
+        minHeight(value: string): IElement<T> {
+            el.style.minHeight = value;
+            return this;
+        },
         get(): T {
             return el;
         },

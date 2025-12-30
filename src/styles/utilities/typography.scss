@@ -1,0 +1,29 @@
+@use "../tokens" as *;
+
+.font-thin {
+    font-weight: 300;
+}
+
+.font-normal {
+    font-weight: normal;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.decoration-none {
+    text-decoration: none;
+}
+
+@each $size in $fontSizes {
+    .text-#{$size} {
+        font-size: #{$size}px;
+    }
+}
+
+@each $size in $lineSizes {
+    .line-#{$size} {
+        line-height: #{$size}px;
+    }
+}
