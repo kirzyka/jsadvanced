@@ -3,15 +3,19 @@ import { img } from "@core/elements/img";
 import { span } from "@core/elements/span";
 import { button } from "@core/elements/button";
 import { Book } from "../../types/Book";
+import { appModel } from "../../model/appModel";
 
 interface Props {
     book: Book;
 }
 
 export function card({ book }: Props) {
-    //const ctx: IAppModel = useContext<IAppModel>(appContext);
+    const { favorites } = appModel;
     //const isFavorite: boolean = ctx.favorites.get().includes(book.key);
     const cover: string = book.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg` : "";
+    const isFavorite: boolean = favorites.get().some((key: string) => key == book.key);
+
+    console.log("Card", isFavorite, book);
 
     return div()
         .children([
@@ -46,10 +50,14 @@ export function card({ book }: Props) {
                     div()
                         .children([
                             button()
-                                .children([img().src("/static/favorite-white.svg").get()])
+                                .children([
+                                    img()
+                                        .src(isFavorite ? "/static/favorites.svg" : "/static/favorites-white.svg")
+                                        .get(),
+                                ])
                                 .width("36px")
                                 .height("32px")
-                                .className("flex items-center justify-center border-secondary rounded-8 bg-none pointer")
+                                .className(`flex items-center justify-center border-secondary rounded-8 bg-none pointer ${isFavorite ? "layer-secondary" : ""}`)
                                 .get(),
                         ])
                         .className("flex mt-auto")

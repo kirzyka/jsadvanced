@@ -17,9 +17,12 @@ export function createElement<T extends HTMLElement>(tagName: string): IElement<
             return this;
         },
         className(classNames: string): IElement<T> {
-            classNames.split(" ").forEach((className) => {
-                el.classList.add(className);
-            });
+            classNames
+                .split(" ")
+                .filter(Boolean)
+                .forEach((className) => {
+                    el.classList.add(className);
+                });
             return this;
         },
 
