@@ -11,15 +11,25 @@ import { updateComponent } from "@core/utils/component/updateComponent";
 
 export function search(homePageState: HomePageState): HTMLElement {
     const { books, totalFound, page, pageSize } = homePageState;
-    const searchString: ISignal<string> = createSignal<string>("");    
+    const searchString: ISignal<string> = createSignal<string>("");
     const fields = "key,title,author_name,cover_edition_key,subject";
 
     const getCountLabel = () => `Найдено книг: ${totalFound.get()}`;
     const countLabel: HTMLElement = span().innerHTML(getCountLabel()).className("line-28").get();
     const getPageLabel = () => `Страница: ${page.get()}`;
     const pageLabel: HTMLElement = span().innerHTML(getPageLabel()).className("line-28").get();
-    const prevBtn: HTMLElement = button().children([img().src("/static/arrow-left.svg").get()]).width("30px").height("30px").onClick(() => page.set(page.get() - 1)).get();
-    const nextBtn: HTMLElement = button().children([img().src("/static/arrow-right.svg").get()]).width("30px").height("30px").onClick(() => page.set(page.get() + 1)).get();
+    const prevBtn: HTMLElement = button()
+        .children([img().src("/static/arrow-left.svg").get()])
+        .width("30px")
+        .height("30px")
+        .onClick(() => page.set(page.get() - 1))
+        .get();
+    const nextBtn: HTMLElement = button()
+        .children([img().src("/static/arrow-right.svg").get()])
+        .width("30px")
+        .height("30px")
+        .onClick(() => page.set(page.get() + 1))
+        .get();
 
     const doSearch = () => {
         const query: string = searchString.get();
@@ -31,7 +41,7 @@ export function search(homePageState: HomePageState): HTMLElement {
                 .then((data) => {
                     const { docs, numFound } = data;
 
-                    books.set(.docs);
+                    books.set(docs);
                     totalFound.set(numFound);
                 });
         }
@@ -47,7 +57,7 @@ export function search(homePageState: HomePageState): HTMLElement {
     });
     page.subscribe(() => {
         pageLabel.innerHTML = getPageLabel();
-        doSearch()
+        doSearch();
     });
 
     return div()
@@ -65,17 +75,7 @@ export function search(homePageState: HomePageState): HTMLElement {
                 .className("relative flex flex-row  flex-grow")
                 .get(),
             div()
-                .children([
-                    countLabel,
-                    div()
-                        .children([
-                            pageLabel,
-                            prevBtn,
-                            nextBtn,
-                        ])
-                        .className("flex flex-row gap-10")
-                        .get(),
-                ])
+                .children([countLabel, div().children([pageLabel, prevBtn, nextBtn]).className("flex flex-row gap-10").get()])
                 .className("flex flex-row align-center justify-between flex-gap-10")
                 .get(),
         ])
