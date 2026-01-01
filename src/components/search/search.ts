@@ -30,6 +30,15 @@ export function search(homePageState: HomePageState): HTMLElement {
         .height("30px")
         .onClick(() => page.set(page.get() + 1))
         .get();
+    const getControls = () => {
+        const children: HTMLElement[] = [pageLabel, prevBtn, nextBtn];
+
+        return div()
+            .children(totalFound.get() > 0 ? children : [])
+            .className("flex flex-row gap-10")
+            .get();
+    };
+    let controls: HTMLElement = getControls();
 
     const doSearch = () => {
         const query: string = searchString.get();
@@ -51,9 +60,11 @@ export function search(homePageState: HomePageState): HTMLElement {
         searchString.set(value);
     }, 500);
 
-    searchString.subscribe(() => doSearch());
+    searchString.subscribe(() => page.set(1));
     totalFound.subscribe(() => {
         countLabel.innerHTML = getCountLabel();
+
+        controls = updateComponent(controls, getControls);
     });
     page.subscribe(() => {
         pageLabel.innerHTML = getPageLabel();
@@ -74,10 +85,7 @@ export function search(homePageState: HomePageState): HTMLElement {
                 ])
                 .className("relative flex flex-row  flex-grow")
                 .get(),
-            div()
-                .children([countLabel, div().children([pageLabel, prevBtn, nextBtn]).className("flex flex-row gap-10").get()])
-                .className("flex flex-row align-center justify-between flex-gap-10")
-                .get(),
+            div().children([countLabel, controls]).className("flex flex-row align-center justify-between flex-gap-10").get(),
         ])
         .className("flex flex-column flex-gap-10")
         .get();

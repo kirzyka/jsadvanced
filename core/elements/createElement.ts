@@ -5,6 +5,7 @@ export function createElement<T extends HTMLElement>(tagName: string): IElement<
 
     return {
         children(children: HTMLElement[]): IElement<T> {
+            el.replaceChildren();
             children.forEach((child) => {
                 if (child) {
                     el.appendChild(child);
