@@ -7,6 +7,7 @@ import { debounce } from "@core/utils/input/debounce";
 import { HomePageState } from "../../pages/home/homePage";
 import { span } from "@core/elements/span";
 import { button } from "@core/elements/button";
+import { updateComponent } from "@core/utils/component/updateComponent";
 
 export function search(homePageState: HomePageState): HTMLElement {
     const { books, totalFound, page, pageSize } = homePageState;
@@ -17,6 +18,8 @@ export function search(homePageState: HomePageState): HTMLElement {
     const countLabel: HTMLElement = span().innerHTML(getCountLabel()).className("line-28").get();
     const getPageLabel = () => `Страница: ${page.get()}`;
     const pageLabel: HTMLElement = span().innerHTML(getPageLabel()).className("line-28").get();
+    const prevBtn: HTMLElement = button().children([img().src("/static/arrow-left.svg").get()]).width("30px").height("30px").onClick(() => page.set(page.get() - 1)).get();
+    const nextBtn: HTMLElement = button().children([img().src("/static/arrow-right.svg").get()]).width("30px").height("30px").onClick(() => page.set(page.get() + 1)).get();
 
     const doSearch = () => {
         const query: string = searchString.get();
@@ -39,7 +42,9 @@ export function search(homePageState: HomePageState): HTMLElement {
     }, 500);
 
     searchString.subscribe(() => doSearch());
-    totalFound.subscribe(() => (countLabel.innerHTML = getCountLabel()));
+    totalFound.subscribe(() => {
+        countLabel.innerHTML = getCountLabel();
+    });
     page.subscribe(() => {
         pageLabel.innerHTML = getPageLabel();
         doSearch()
@@ -52,7 +57,6 @@ export function search(homePageState: HomePageState): HTMLElement {
                     input()
                         .attribute("type", "text")
                         .attribute("placeholder", "Введите название книги")
-                        //.attribute("name", "searchGield")
                         .value(searchString.get())
                         .onInput(onSearchStringInput)
                         .get(),
@@ -66,18 +70,8 @@ export function search(homePageState: HomePageState): HTMLElement {
                     div()
                         .children([
                             pageLabel,
-                            button()
-                                .children([img().src("/static/arrow-left.svg").get()])
-                                .width("30px")
-                                .height("30px")
-                                .onClick(() => page.set(page.get() - 1))
-                                .get(),
-                            button()
-                                .children([img().src("/static/arrow-right.svg").get()])
-                                .width("30px")
-                                .height("30px")
-                                .onClick(() => page.set(page.get() + 1))
-                                .get(),
+                            prevBtn,
+                            nextBtn,
                         ])
                         .className("flex flex-row gap-10")
                         .get(),
