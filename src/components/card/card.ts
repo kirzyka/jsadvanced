@@ -4,6 +4,7 @@ import { span } from "@core/elements/span";
 import { button } from "@core/elements/button";
 import { Book } from "../../types/Book";
 import { appModel } from "../../model/appModel";
+import { bindComponent } from "@core/utils/component/bindComponent";
 
 interface Props {
     book: Book;
@@ -11,9 +12,24 @@ interface Props {
 
 export function card({ book }: Props) {
     const { favorites } = appModel;
-    //const isFavorite: boolean = ctx.favorites.get().includes(book.key);
     const cover: string = book.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg` : "";
-    const isFavorite: boolean = favorites.get().some((key: string) => key == book.key);
+    const favBtn: HTMLElement = bindComponent([favorites], () => {
+        const isFavorite: boolean = favorites.get().some((key: string) => key == book.key);
+        const addToFavorites = () => favorites.set([...favorites.get(), book.key]);
+        const removeFromFavorites = () => favorites.set(favorites.get().filter((key: string) => key != book.key));
+
+        return button()
+            .children([
+                img()
+                    .src(isFavorite ? "/static/favorites.svg" : "/static/favorites-white.svg")
+                    .get(),
+            ])
+            .width("36px")
+            .height("32px")
+            .className(`flex items-center justify-center border-secondary rounded-8 bg-none pointer ${isFavorite ? "layer-secondary" : ""}`)
+            .onClick(isFavorite ? removeFromFavorites : addToFavorites)
+            .get();
+    });
 
     return div()
         .children([
@@ -45,21 +61,7 @@ export function card({ book }: Props) {
                         .className("text-12 line-16")
                         .get(),
 
-                    div()
-                        .children([
-                            button()
-                                .children([
-                                    img()
-                                        .src(isFavorite ? "/static/favorites.svg" : "/static/favorites-white.svg")
-                                        .get(),
-                                ])
-                                .width("36px")
-                                .height("32px")
-                                .className(`flex items-center justify-center border-secondary rounded-8 bg-none pointer ${isFavorite ? "layer-secondary" : ""}`)
-                                .get(),
-                        ])
-                        .className("flex mt-auto")
-                        .get(),
+                    div().children([favBtn]).className("flex mt-auto").get(),
                 ])
                 .minHeight("150px")
                 .className("flex flex-column bg-secondary text-secondary p-10")

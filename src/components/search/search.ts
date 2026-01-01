@@ -4,10 +4,10 @@ import { img } from "@core/elements/img";
 import { ISignal } from "@core/interfaces/ISignal";
 import { createSignal } from "@core/signal/createSignal";
 import { debounce } from "@core/utils/input/debounce";
-import { HomePageState } from "../../pages/home/homePage";
 import { span } from "@core/elements/span";
-import { button } from "@core/elements/button";
-import { updateComponent } from "@core/utils/component/updateComponent";
+import { bindComponent } from "@core/utils/component/bindComponent";
+import { HomePageState } from "../../pages/home/homePage";
+import { paginator } from "./paginator";
 
 export function search(homePageState: HomePageState): HTMLElement {
     const { books, totalFound, page, pageSize } = homePageState;
@@ -16,29 +16,10 @@ export function search(homePageState: HomePageState): HTMLElement {
 
     const getCountLabel = () => `Найдено книг: ${totalFound.get()}`;
     const countLabel: HTMLElement = span().innerHTML(getCountLabel()).className("line-28").get();
-    const getPageLabel = () => `Страница: ${page.get()}`;
-    const pageLabel: HTMLElement = span().innerHTML(getPageLabel()).className("line-28").get();
-    const prevBtn: HTMLElement = button()
-        .children([img().src("/static/arrow-left.svg").get()])
-        .width("30px")
-        .height("30px")
-        .onClick(() => page.set(page.get() - 1))
-        .get();
-    const nextBtn: HTMLElement = button()
-        .children([img().src("/static/arrow-right.svg").get()])
-        .width("30px")
-        .height("30px")
-        .onClick(() => page.set(page.get() + 1))
-        .get();
-    const getControls = () => {
-        const children: HTMLElement[] = [pageLabel, prevBtn, nextBtn];
 
-        return div()
-            .children(totalFound.get() > 0 ? children : [])
-            .className("flex flex-row gap-10")
-            .get();
-    };
-    let controls: HTMLElement = getControls();
+    const controls: HTMLElement = bindComponent([totalFound, page], () => {
+        return paginator({ totalFound, page, pageSize });
+    });
 
     const doSearch = () => {
         const query: string = searchString.get();
@@ -63,11 +44,8 @@ export function search(homePageState: HomePageState): HTMLElement {
     searchString.subscribe(() => page.set(1));
     totalFound.subscribe(() => {
         countLabel.innerHTML = getCountLabel();
-
-        controls = updateComponent(controls, getControls);
     });
     page.subscribe(() => {
-        pageLabel.innerHTML = getPageLabel();
         doSearch();
     });
 
