@@ -4,9 +4,9 @@ import { img } from "@core/elements/img";
 import { ISignal } from "@core/interfaces/ISignal";
 import { createSignal } from "@core/signal/createSignal";
 import { debounce } from "@core/utils/input/debounce";
-import { span } from "@core/elements/span";
 import { bindComponent } from "@core/utils/component/bindComponent";
 import { HomePageState } from "../../pages/home/homePage";
+import { totalFoundLabel } from "./totalFoundLabel";
 import { paginator } from "./paginator";
 
 export function search(homePageState: HomePageState): HTMLElement {
@@ -14,12 +14,8 @@ export function search(homePageState: HomePageState): HTMLElement {
     const searchString: ISignal<string> = createSignal<string>("");
     const fields = "key,title,author_name,cover_edition_key,subject";
 
-    const getCountLabel = () => `Найдено книг: ${totalFound.get()}`;
-    const countLabel: HTMLElement = span().innerHTML(getCountLabel()).className("line-28").get();
-
-    const controls: HTMLElement = bindComponent([totalFound, page], () => {
-        return paginator({ totalFound, page, pageSize });
-    });
+    const countLabel: HTMLElement = bindComponent([totalFound], () => totalFoundLabel({ totalFound }));
+    const controls: HTMLElement = bindComponent([totalFound, page], () => paginator({ totalFound, page, pageSize }));
 
     const doSearch = () => {
         const query: string = searchString.get();
@@ -42,9 +38,6 @@ export function search(homePageState: HomePageState): HTMLElement {
     }, 500);
 
     searchString.subscribe(() => page.set(1));
-    totalFound.subscribe(() => {
-        countLabel.innerHTML = getCountLabel();
-    });
     page.subscribe(() => {
         doSearch();
     });
