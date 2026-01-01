@@ -1,12 +1,11 @@
 import { div } from "@core/elements/div";
 import { bindComponent } from "@core/utils/component/bindComponent";
-import { span } from "@core/elements/span";
 import { createSignal } from "@core/signal/createSignal";
 import { ISignal } from "@core/interfaces/ISignal";
 import { search } from "../../components/search/search";
 import { cardList } from "../../components/card-list/cardList";
-import { header } from "../../components/header/header";
 import { Book } from "../../types/Book";
+import { loadingIndicator } from "../../components/loadingIndicator/loadingIndicator";
 
 export interface HomePageState {
     totalFound: ISignal<number>;
@@ -15,11 +14,14 @@ export interface HomePageState {
     pageSize: number;
     isLoading: ISignal<boolean>;
 }
+
+const PAGE_SIZE: number = 8;
+
 export function homePage(): HTMLElement {
     const totalFound: ISignal<number> = createSignal<number>(0);
     const books: ISignal<Book[]> = createSignal<Book[]>([]);
     const page: ISignal<number> = createSignal<number>(1);
-    const pageSize: number = 6;
+    const pageSize: number = PAGE_SIZE;
     const isLoading: ISignal<boolean> = createSignal<boolean>(false);
     const state: HomePageState = {
         totalFound,
@@ -30,19 +32,7 @@ export function homePage(): HTMLElement {
     };
 
     return div()
-        .children([
-            header(),
-            search(state),
-            bindComponent([books, isLoading], () => {
-                if (isLoading.get()) {
-                    return div()
-                        .children([span().innerHTML("Загрузка...").get()])
-                        .className("flex items-center justify-center")
-                        .get();
-                }
-                return cardList({ books });
-            }),
-        ])
+        .children([search(state), bindComponent([books], () => cardList({ books })), bindComponent([isLoading], () => loadingIndicator(isLoading))])
         .className("flex flex-column flex-gap-10")
         .get();
 }

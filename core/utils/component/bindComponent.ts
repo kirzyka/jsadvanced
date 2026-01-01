@@ -1,7 +1,8 @@
+import { FC } from "@core/types/FC";
 import { ISignal } from "@core/interfaces/ISignal";
 import { updateComponent } from "./updateComponent";
 
-export function autoUnsubscribe(getEl: () => HTMLElement, unsubs: (() => void)[]) {
+function autoUnsubscribe(getEl: FC, unsubs: (() => void)[]) {
     const observer = new MutationObserver(() => {
         const el: HTMLElement = getEl();
 
@@ -14,7 +15,7 @@ export function autoUnsubscribe(getEl: () => HTMLElement, unsubs: (() => void)[]
     observer.observe(document.body, { childList: true, subtree: true });
 }
 
-export function bindComponent(signals: ISignal<any>[], render: () => HTMLElement): HTMLElement {
+export function bindComponent(signals: ISignal<any>[], render: FC): HTMLElement {
     let el: HTMLElement = render();
 
     const unsubscribers = signals.map((signal: ISignal<any>) =>

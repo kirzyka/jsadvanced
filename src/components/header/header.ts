@@ -20,11 +20,13 @@ export function header() {
             div()
                 .children([
                     a()
+                        .href("#/")
                         .children([img().src("/static/search.svg").attribute("alt", "Поиск иконка").get(), span().innerHTML("Поиск книг").get()])
                         .className("flex items-center gap-10 text-14 line-20 decoration-none")
                         .get(),
 
                     a()
+                        .href("#/favorites")
                         .children([
                             img().src("/static/favorites.svg").attribute("alt", "Избранное").get(),
                             span().innerHTML("Избранное").get(),
