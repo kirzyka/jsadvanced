@@ -1,24 +1,17 @@
 import { div } from "@core/elements/div";
-import { span } from "@core/elements/span";
+import { ISignal } from "@core/interfaces/ISignal";
 import { Book } from "../../types/Book";
 import { card } from "../card/card";
 
 import "./card-list.css";
 
 interface Props {
-    books: Book[];
-    isLoading: boolean;
+    books: ISignal<Book[]>;
 }
 
-export function cardList({ books, isLoading }: Props) {
-    if (isLoading)
-        return div()
-            .children([span().innerHTML("Загрузка...").get()])
-            .className("flex items-center justify-center")
-            .get();
-
+export function cardList({ books }: Props) {
     return div()
-        .children(books.map((book) => card({ book })))
+        .children(books.get().map((book) => card({ book })))
         .className("card-list")
         .get();
 }

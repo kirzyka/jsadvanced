@@ -10,7 +10,7 @@ import { totalFoundLabel } from "./totalFoundLabel";
 import { paginator } from "./paginator";
 
 export function search(homePageState: HomePageState): HTMLElement {
-    const { books, totalFound, page, pageSize } = homePageState;
+    const { books, totalFound, page, pageSize, isLoading } = homePageState;
     const searchString: ISignal<string> = createSignal<string>("");
     const fields = "key,title,author_name,cover_edition_key,subject";
 
@@ -22,6 +22,7 @@ export function search(homePageState: HomePageState): HTMLElement {
         const offset: number = (page.get() - 1) * pageSize;
 
         if (query.length > 2) {
+            isLoading.set(true);
             fetch(`https://openlibrary.org/search.json?q=${query}&offset=${offset}&limit=${pageSize}&fields=${fields}`)
                 .then((res) => res.json())
                 .then((data) => {
@@ -29,7 +30,8 @@ export function search(homePageState: HomePageState): HTMLElement {
 
                     books.set(docs);
                     totalFound.set(numFound);
-                });
+                })
+                .finally(() => isLoading.set(false));
         }
     };
 

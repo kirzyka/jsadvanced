@@ -1,5 +1,6 @@
 import { div } from "@core/elements/div";
-import { updateComponent } from "@core/utils/component/updateComponent";
+import { bindComponent } from "@core/utils/component/bindComponent";
+import { span } from "@core/elements/span";
 import { createSignal } from "@core/signal/createSignal";
 import { ISignal } from "@core/interfaces/ISignal";
 import { search } from "../../components/search/search";
@@ -12,6 +13,7 @@ export interface HomePageState {
     books: ISignal<Book[]>;
     page: ISignal<number>;
     pageSize: number;
+    isLoading: ISignal<boolean>;
 }
 export function homePage(): HTMLElement {
     const totalFound: ISignal<number> = createSignal<number>(0);
@@ -24,14 +26,19 @@ export function homePage(): HTMLElement {
         books,
         page,
         pageSize,
+        isLoading,
     };
 
     // components
 
-    let list: HTMLElement = cardList({ books: books.get(), isLoading: false });
-
-    books.subscribe(() => {
-        list = updateComponent(list, () => cardList({ books: books.get(), isLoading: false }));
+    const list: HTMLElement = bindComponent([books, isLoading], () => {
+        if (isLoading.get()) {
+            return div()
+                .children([span().innerHTML("Загрузка...").get()])
+                .className("flex items-center justify-center")
+                .get();
+        }
+        return cardList({ books });
     });
 
     return div()

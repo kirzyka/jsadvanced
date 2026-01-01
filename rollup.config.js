@@ -49,8 +49,8 @@ export default {
         nodeResolve(),
         typescript({
             compilerOptions: {
-                lib: ["es2016", "dom"],
-                target: "es2016",
+                lib: ["es2018", "dom"],
+                target: "es2018",
             },
         }),
     ],
