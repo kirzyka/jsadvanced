@@ -29,20 +29,20 @@ export function homePage(): HTMLElement {
         isLoading,
     };
 
-    // components
-
-    const list: HTMLElement = bindComponent([books, isLoading], () => {
-        if (isLoading.get()) {
-            return div()
-                .children([span().innerHTML("Загрузка...").get()])
-                .className("flex items-center justify-center")
-                .get();
-        }
-        return cardList({ books });
-    });
-
     return div()
-        .children([header(), search(state), list])
+        .children([
+            header(),
+            search(state),
+            bindComponent([books, isLoading], () => {
+                if (isLoading.get()) {
+                    return div()
+                        .children([span().innerHTML("Загрузка...").get()])
+                        .className("flex items-center justify-center")
+                        .get();
+                }
+                return cardList({ books });
+            }),
+        ])
         .className("flex flex-column flex-gap-10")
         .get();
 }
