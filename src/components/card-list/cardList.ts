@@ -11,7 +11,12 @@ interface Props {
 
 export function cardList({ books }: Props) {
     return div()
-        .children(books.get().map((book) => card({ book })))
-        .className("card-list")
+        .children([
+            div()
+                .children(books.get().map((book) => card({ book })))
+                .className("card-list w-full")
+                .get(),
+        ])
+        .className("flex flex-grow w-full")
         .get();
 }

@@ -32,7 +32,13 @@ export function homePage(): HTMLElement {
     };
 
     return div()
-        .children([search(state), bindComponent([books], () => cardList({ books })), bindComponent([isLoading], () => loadingIndicator(isLoading))])
-        .className("flex flex-column flex-gap-10")
+        .children([
+            div()
+                .children([search(state), bindComponent([books], () => cardList({ books }))])
+                .className("flex flex-column flex-grow flex-gap-10")
+                .get(),
+            bindComponent([isLoading], () => loadingIndicator(isLoading)),
+        ])
+        .className("relative flex flex-grow")
         .get();
 }

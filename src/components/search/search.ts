@@ -49,6 +49,7 @@ export function search(homePageState: HomePageState): HTMLElement {
             div()
                 .children([
                     input()
+                        .attribute("name", "query")
                         .attribute("type", "text")
                         .attribute("placeholder", "Введите название книги")
                         .value(searchString.get())
