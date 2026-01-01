@@ -7,5 +7,10 @@ export interface IElement<T extends HTMLElement> {
     height(value: string): this;
     minWidth(value: string): this;
     minHeight(value: string): this;
+    top(value: string): this;
+    bottom(value: string): this;
+    left(value: string): this;
+    right(value: string): this;
+
     get(): T;
 }

@@ -35,18 +35,13 @@ export function header() {
                                 .className("flex items-center justify-center px-10 border rounded")
                                 .get(),
                         ])
-                        /*
-    width: 12px;
-    height: 30px;
-*/
-
                         .className("flex items-center gap-10 text-14 line-20 decoration-none")
                         .get(),
                 ])
                 .className("flex flex-row items-center gap-30")
                 .get(),
         ])
-        .className("flex flex-row items-center space-between my-20")
+        .className("flex flex-row items-center justify-between my-20")
         .get();
 }
 

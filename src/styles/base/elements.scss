@@ -5,3 +5,22 @@ a {
         text-decoration: underline;
     }
 }
+
+input {
+    background: #dedede;
+    border: none;
+    border-radius: 5px;
+    color: #252525;
+    padding: 15px 30px 15px 50px;
+    flex: 1;
+}
+
+button {
+    border: none;
+    background: #000; /*var(--black);*/
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

@@ -15,8 +15,6 @@ export function card({ book }: Props) {
     const cover: string = book.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg` : "";
     const isFavorite: boolean = favorites.get().some((key: string) => key == book.key);
 
-    console.log("Card", isFavorite, book);
-
     return div()
         .children([
             div()

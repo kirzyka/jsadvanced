@@ -46,6 +46,22 @@ export function createElement<T extends HTMLElement>(tagName: string): IElement<
             el.style.minHeight = value;
             return this;
         },
+        top(value: string): IElement<T> {
+            el.style.top = value;
+            return this;
+        },
+        bottom(value: string): IElement<T> {
+            el.style.bottom = value;
+            return this;
+        },
+        left(value: string): IElement<T> {
+            el.style.left = value;
+            return this;
+        },
+        right(value: string): IElement<T> {
+            el.style.right = value;
+            return this;
+        },
         get(): T {
             return el;
         },
