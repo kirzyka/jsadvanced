@@ -67,6 +67,8 @@ export function card({ book }: Props) {
                 .className("flex flex-column bg-secondary text-secondary p-10")
                 .get(),
         ])
+        .width("240px")
+        .height("330px")
         .className("flex flex-column overflow-hidden rounded-8")
         .get();
 }

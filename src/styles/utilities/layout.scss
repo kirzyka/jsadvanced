@@ -6,6 +6,22 @@
     position: relative;
 }
 
+.overflow-auto {
+    overflow: auto;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}
+
+.overflow-x-auto {
+    overflow-x: auto;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
 .overflow-hidden {
     overflow: hidden;
 }
@@ -18,12 +34,12 @@
     height: 100%;
 }
 
-.w-half {
-    width: 50%;
+.w-min-0 {
+    min-width: 0;
 }
 
-.h-half {
-    height: 50%;
+.h-min-0 {
+    min-height: 0;
 }
 
 .flex {
@@ -39,6 +55,10 @@
 
 .flex-grow {
     flex-grow: 1;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
 }
 
 .flex-gap-10 {

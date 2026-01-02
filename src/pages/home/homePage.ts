@@ -17,7 +17,7 @@ export interface HomePageState {
     books: ISignal<Book[]>;
 }
 
-const PAGE_SIZE: number = 8;
+const PAGE_SIZE: number = 20;
 
 export function homePage(): HTMLElement {
     const hashQuery: URLSearchParams = getHashQuery();
@@ -45,6 +45,6 @@ export function homePage(): HTMLElement {
                 .get(),
             bindComponent([isLoading], () => loadingIndicator(isLoading)),
         ])
-        .className("relative flex flex-grow")
+        .className("relative flex flex-grow h-min-0")
         .get();
 }

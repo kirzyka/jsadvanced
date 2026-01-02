@@ -1,9 +1,13 @@
 import { div } from "@core/elements/div";
-import { h1 } from "@core/elements/h1";
+import { bindComponent } from "@core/utils/component/bindComponent";
+import { cardList } from "../../components/card-list/cardList";
+import { appModel } from "../../model/appModel";
 
 export function favoritesPage(): HTMLElement {
+    const { favorites } = appModel;
+
     return div()
-        .children([h1().innerHTML("Избранное").get()])
-        .className("flex flex-row flex-gap-10")
+        .children([bindComponent([favorites], () => cardList({ books: favorites }))])
+        .className("relative flex flex-grow h-min-0")
         .get();
 }
