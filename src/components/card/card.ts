@@ -2,9 +2,9 @@ import { div } from "@core/elements/div";
 import { img } from "@core/elements/img";
 import { span } from "@core/elements/span";
 import { button } from "@core/elements/button";
+import { bindComponent } from "@core/utils/component/bindComponent";
 import { Book } from "../../types/Book";
 import { appModel } from "../../model/appModel";
-import { bindComponent } from "@core/utils/component/bindComponent";
 
 interface Props {
     book: Book;
@@ -14,9 +14,9 @@ export function card({ book }: Props) {
     const { favorites } = appModel;
     const cover: string = book.cover_edition_key ? `https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg` : "";
     const favBtn: HTMLElement = bindComponent([favorites], () => {
-        const isFavorite: boolean = favorites.get().some((key: string) => key == book.key);
-        const addToFavorites = () => favorites.set([...favorites.get(), book.key]);
-        const removeFromFavorites = () => favorites.set(favorites.get().filter((key: string) => key != book.key));
+        const isFavorite: boolean = favorites.get().some((fav: Book) => fav.key == book.key);
+        const addToFavorites = () => favorites.set([...favorites.get(), book]);
+        const removeFromFavorites = () => favorites.set(favorites.get().filter((fav: Book) => fav.key != book.key));
 
         return button()
             .children([

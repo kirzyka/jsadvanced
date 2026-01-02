@@ -1,4 +1,4 @@
-import { FC } from "@core/types/FC";
+import { FC } from "../types/FC";
 import { IMountedComponent } from "../interfaces/IMountComponent";
 
 export function mount(component: FC): IMountedComponent {

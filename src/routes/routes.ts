@@ -1,5 +1,5 @@
-import { favoritesPage } from "../pages/favorites/favoritesPage";
 import { homePage } from "../pages/home/homePage";
+import { favoritesPage } from "../pages/favorites/favoritesPage";
 
 export const routes = [
     { path: "", page: homePage },

@@ -2,10 +2,11 @@ import { img } from "@core/elements/img";
 import { a } from "@core/elements/a";
 import { div } from "@core/elements/div";
 import { span } from "@core/elements/span";
+import { bindComponent } from "@core/utils/component/bindComponent";
 import { appModel } from "../../model/appModel";
 
 export function header() {
-    const { favorites } = appModel;
+    const { favorites, lastSearchHref } = appModel;
     const favCountLabel = span().innerHTML(favorites.get().length.toString()).className("font-bold text-12 line-28").get();
 
     favorites.subscribe(() => {
@@ -19,11 +20,13 @@ export function header() {
                 .get(),
             div()
                 .children([
-                    a()
-                        .href("#/")
-                        .children([img().src("/static/search.svg").attribute("alt", "Поиск иконка").get(), span().innerHTML("Поиск книг").get()])
-                        .className("flex items-center gap-10 text-14 line-20 decoration-none")
-                        .get(),
+                    bindComponent([lastSearchHref], () =>
+                        a()
+                            .href(lastSearchHref.get())
+                            .children([img().src("/static/search.svg").attribute("alt", "Поиск иконка").get(), span().innerHTML("Поиск книг").get()])
+                            .className("flex items-center gap-10 text-14 line-20 decoration-none")
+                            .get()
+                    ),
 
                     a()
                         .href("#/favorites")

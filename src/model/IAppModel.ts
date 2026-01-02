@@ -1,5 +1,7 @@
-import { ISignal } from "../../core/interfaces/ISignal";
+import { ISignal } from "@core/interfaces/ISignal";
+import { Book } from "../types/Book";
 
 export interface IAppModel {
-    favorites: ISignal<string[]>;
+    favorites: ISignal<Book[]>;
+    lastSearchHref: ISignal<string>;
 }

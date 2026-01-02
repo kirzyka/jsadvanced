@@ -1,5 +1,5 @@
-import { FC } from "@core/types/FC";
-import { ISignal } from "@core/interfaces/ISignal";
+import { FC } from "../../types/FC";
+import { ISignal } from "../../interfaces/ISignal";
 import { updateComponent } from "./updateComponent";
 
 function autoUnsubscribe(getEl: FC, unsubs: (() => void)[]) {

@@ -1,17 +1,17 @@
 import { div } from "@core/elements/div";
 import { input } from "@core/elements/input";
 import { img } from "@core/elements/img";
-import { ISignal } from "@core/interfaces/ISignal";
-import { createSignal } from "@core/signal/createSignal";
 import { debounce } from "@core/utils/input/debounce";
 import { bindComponent } from "@core/utils/component/bindComponent";
+import { setHashQuery } from "@core/navigation/setHashQuery";
 import { HomePageState } from "../../pages/home/homePage";
+import { appModel } from "../../model/appModel";
 import { totalFoundLabel } from "./totalFoundLabel";
 import { paginator } from "./paginator";
 
 export function search(homePageState: HomePageState): HTMLElement {
-    const { books, totalFound, page, pageSize, isLoading } = homePageState;
-    const searchString: ISignal<string> = createSignal<string>("");
+    const { lastSearchHref } = appModel;
+    const { searchString, page, pageSize, isLoading, totalFound, books } = homePageState;
     const fields = "key,title,author_name,cover_edition_key,subject";
 
     const countLabel: HTMLElement = bindComponent([totalFound], () => totalFoundLabel({ totalFound }));
@@ -39,17 +39,29 @@ export function search(homePageState: HomePageState): HTMLElement {
         searchString.set(value);
     }, 500);
 
-    searchString.subscribe(() => page.set(1));
+    const updateHashQuery = () => {
+        setHashQuery({ q: searchString.get(), p: page.get() });
+        lastSearchHref.set(location.hash);
+    };
+
+    searchString.subscribe(() => {
+        page.set(1);
+        updateHashQuery();
+    });
     page.subscribe(() => {
         doSearch();
+        updateHashQuery();
     });
+
+    lastSearchHref.set(location.hash);
+    doSearch();
 
     return div()
         .children([
             div()
                 .children([
                     input()
-                        .attribute("name", "query")
+                        .attribute("name", "txtSearch")
                         .attribute("type", "text")
                         .attribute("placeholder", "Введите название книги")
                         .value(searchString.get())

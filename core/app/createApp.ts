@@ -3,15 +3,16 @@ import { IRoute } from "../interfaces/IRoute";
 import { page404 } from "../components/page404";
 import { mount } from "./mount";
 import { FC } from "../types/FC";
+import { getHashPath } from "../navigation/getHashPath";
 
 export function createApp(options: IApp) {
     const { title = "My App", rootElement = "root", routes = [], wrapper = (fc: FC) => fc() } = options;
 
+    let currentPath: string | null = null;
     const route = () => {
-        const hash = window.location.hash;
+        const path = getHashPath();
         const root: HTMLElement | null = document.getElementById(rootElement);
-        console.log("hash", hash);
-        const route: IRoute | undefined = routes.find((route: IRoute) => route.path === hash);
+        const route: IRoute | undefined = routes.find((route: IRoute) => route.path === path);
 
         document.title = title;
 
@@ -20,6 +21,11 @@ export function createApp(options: IApp) {
             return;
         }
 
+        if (path === currentPath) {
+            return;
+        }
+
+        currentPath = path;
         root.innerHTML = "";
 
         if (route) {
