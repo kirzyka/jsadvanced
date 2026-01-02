@@ -46,6 +46,7 @@ export function header() {
                 .className("flex flex-row items-center gap-30")
                 .get(),
         ])
+        .height("44px")
         .className("flex flex-row items-center justify-between my-20")
         .get();
 }

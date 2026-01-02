@@ -17,7 +17,7 @@ export interface HomePageState {
     books: ISignal<Book[]>;
 }
 
-const PAGE_SIZE: number = 20;
+const PAGE_SIZE: number = 10;
 
 export function homePage(): HTMLElement {
     const hashQuery: URLSearchParams = getHashQuery();

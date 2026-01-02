@@ -34,7 +34,17 @@ export function card({ book }: Props) {
     return div()
         .children([
             div()
-                .children([cover ? img().src(cover).get() : null])
+                .children([
+                    cover
+                        ? img()
+                              .src(cover)
+                              .attribute("loading", "lazy")
+                              .attribute("decoding", "async")
+                              .attribute("fetchpriority", "low")
+                              .attribute("alt", book.title)
+                              .get()
+                        : null,
+                ])
                 .height("180px")
                 .className("flex items-start justify-center pt-10 layer-secondary")
                 .get(),
@@ -67,7 +77,7 @@ export function card({ book }: Props) {
                 .className("flex flex-column bg-secondary text-secondary p-10")
                 .get(),
         ])
-        .width("240px")
+        .width("300px")
         .height("330px")
         .className("flex flex-column overflow-hidden rounded-8")
         .get();
