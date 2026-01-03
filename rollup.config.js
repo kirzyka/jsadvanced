@@ -15,13 +15,13 @@ export default {
     output: {
         dir: "dist",
         format: "es",
+        sourcemap: true,
         chunkFileNames: "[name].js",
         manualChunks(id) {
             if (id.includes("\\core\\")) {
                 return "core";
             }
         },
-        sourcemap: true,
     },
     plugins: [
         alias({
