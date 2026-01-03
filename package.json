@@ -2,8 +2,8 @@
     "name": "book-app",
     "version": "1.0.0",
     "description": "Test application with custom UI framework",
-    "main": "app.js",
     "type": "module",
+    "main": "app.js",
     "scripts": {
         "start": "live-server",
         "build": "rollup -c -w",

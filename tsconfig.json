@@ -4,6 +4,6 @@
         "paths": {
             "@core/*": ["core/*"]
         },
-        "target": "es2018"
+        "target": "es2020"
     }
 }

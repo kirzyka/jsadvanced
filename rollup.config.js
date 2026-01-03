@@ -21,6 +21,7 @@ export default {
                 return "core";
             }
         },
+        sourcemap: true,
     },
     plugins: [
         alias({
@@ -48,9 +49,11 @@ export default {
         }),
         nodeResolve(),
         typescript({
+            tsconfig: "./tsconfig.json",
             compilerOptions: {
-                lib: ["es2018", "dom"],
-                target: "es2018",
+                lib: ["es2020", "dom"],
+                target: "es2020",
+                sourceMap: true,
             },
         }),
     ],
